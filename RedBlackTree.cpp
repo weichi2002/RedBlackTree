@@ -3,15 +3,30 @@
 #include <string>
 #include <vector>
 
+
 RedBlackTree::RedBlackTree(){
     root = nullptr;
     numItems = 0;
 }
 
+void RedBlackTree::destroyRecursive(Node* node){
+    if(node != nullptr){
+        destroyRecursive(node->left);
+        destroyRecursive(node->right);
+        delete node;
+    }
+
+}
+
+RedBlackTree::~RedBlackTree(){
+    destroyRecursive(root);
+}
+
 void RedBlackTree::fixTree(Node* node){
    
-    while (node->parent->color == COLOR_RED && node != root){
-        // cout << "while loop on node:" << node->data << endl;
+    while (node->parent->color == COLOR_RED){
+
+        cout << "Fixing Node :" << node->data << endl;
         Node* uncle;
         Node* parent = node->parent;
         Node* grandparent = node->parent->parent;
@@ -24,29 +39,37 @@ void RedBlackTree::fixTree(Node* node){
             uncle = grandparent->left; //left uncle
 
             if (uncle != nullptr && uncle->color == COLOR_RED ) { //if uncle color is red, then just recolor
+                cout << "LEFT RED UNCLE" << endl;
+                cout << "grandparent color" << grandparent->color << endl;
                 grandparent->color = COLOR_RED;
-                uncle->color = COLOR_BLACK;
-                parent->color = COLOR_BLACK;
-                node = grandparent;
+                cout << "uncle color " << uncle->color << endl;
 
+                uncle->color = COLOR_BLACK;
+                cout << "parent color " << parent->color << endl;
+                parent->color = COLOR_BLACK;
+                cout << "here" << endl;
+                node = grandparent;
             } 
             else {//uncle is black, rotate and recolor
 
                 if (node == parent->left) {// RL case
+                    cout << "RIGHT LEFT CASE" << endl;
                     RightRotate(parent);
                     node = parent;
                     parent = node->parent;
-                }                          
+                }else{
+                    cout << "RIGHT RIGHT CASE" << endl;
+                }
                 swap(parent->color, grandparent->color); //RR case
                 LeftRotate(grandparent);
             }
 
         } else { //right uncle
 
-            uncle = grandparent->right; //this causes seg fault
+            uncle = grandparent->right; 
 
             if (uncle != nullptr && uncle->color == COLOR_RED) {//if uncle color is red, then just recolor
-
+                cout << "RIGHT RED UNCLE" << endl;
                 uncle->color = COLOR_BLACK;
                 parent->color = COLOR_BLACK;
                 grandparent->color = COLOR_RED;
@@ -55,16 +78,22 @@ void RedBlackTree::fixTree(Node* node){
             } else {//uncle is black, rotate and recolor
 
                 if (node == parent->right) {//left right case, rotate left first then right
+                cout << "LEFT RIGHT CASE" << endl;
                     LeftRotate(parent);
                     node = parent;
                     parent = node->parent;
+                }else{
+                    cout << "LEFT LEFT CASE" << endl;
                 }
                 swap(parent->color, grandparent->color); //left left case, rotate right
                 RightRotate(grandparent);
             }
         }
+        if(node == root){//if node is root, then stop
+            break;
+        }
   }
-  root->color = COLOR_BLACK;
+  root->color = COLOR_BLACK;  
 }
 
 void RedBlackTree::RightRotate(Node* node) {
@@ -120,7 +149,6 @@ void RedBlackTree::RightRotate(Node* node) {
 
 void RedBlackTree::bstInsert(Node* insert){
 
-    // cout << "BST insert (" << insert->data << ")" << endl;
     Node* cur = root;
     while (cur != nullptr) {
         if (insert->data < cur -> data) {
@@ -145,19 +173,14 @@ void RedBlackTree::bstInsert(Node* insert){
             }
         }
     }
-    cout << "BST insert (" << insert->data << ") done" << endl;
-
-    
 }
-
-
 
 void RedBlackTree::Insert(int num){
 
-    if(Contains(num)){
-        throw invalid_argument("Duplicate items are not allowed");
-    }
-
+    // if(Contains(num)){
+    //     throw invalid_argument("Duplicate items are not allowed");
+    // }
+    cout << endl << "Inserting " << num << endl;
     numItems++; //increase count
     Node* temp = new Node(num);
 
@@ -259,11 +282,30 @@ int RedBlackTree::GetMin() const{
 
 bool RedBlackTree::Contains(int num){
 
-    string tree = ToPostfixString();
-    if(tree.find(to_string(num)) == string::npos){
-        return false; //if the string is not found, return false
-    } 
-    else return true;
+    //use bst search to find duplicates
+    Node* cur = root;
+    while (cur != nullptr) {
+
+        if(cur->data == num){//
+            return true;
+        }
+
+        if (num < cur -> data) {
+            if (cur -> left != nullptr) {
+                cur = cur -> left;
+            }else{
+                break;
+            }
+        } else {
+            if (cur -> right != nullptr) {
+                cur = cur -> right;
+            }else{
+                break;
+            }
+        }
+    }
+    return false;
+
 }
 
 

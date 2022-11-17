@@ -24,7 +24,6 @@ struct Node{
     unsigned short color; //red is 1, black is 0
     Node *left, *right, *parent;
 
-
     Node(int data){
        this->data = data;
        left = right = parent = nullptr;
@@ -37,6 +36,7 @@ class RedBlackTree{
 
     public: 
         RedBlackTree();
+        ~RedBlackTree();
         RedBlackTree(const RedBlackTree& copy); //copy constructor
 
         void Insert(int num);
@@ -54,18 +54,22 @@ class RedBlackTree{
         unsigned long long int numItems;
         Node *root;
 
+        //to string helper functions
         string ToPrefixStringPrivate(Node* root); //preorder
         string ToPostfixStringPrivate(Node* root); //inorder
         string ToInfixStringPrivate(Node* root); //postorder
-
         void inorder(Node* root, string& s);
         void preorder(Node* root, string& s);
         void postorder(Node* root, string& s);
 
+        //insert helper functions
         void fixTree(Node* node);
         void RightRotate(Node* node);
         void LeftRotate(Node* node);
         void bstInsert(Node* node);
+
+        //delete helper functions
+        void destroyRecursive(Node* node);
         
 };
 #endif
