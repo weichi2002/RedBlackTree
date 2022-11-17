@@ -8,20 +8,22 @@ RedBlackTree::RedBlackTree(){
     numItems = 0;
 }
 
-void RedBlackTree::sortTree(Node* &node){
+void RedBlackTree::fixTree(Node* node){
    
     while (node->parent->color == COLOR_RED && node != root){
-
+        // cout << "while loop on node:" << node->data << endl;
         Node* uncle;
         Node* parent = node->parent;
         Node* grandparent = node->parent->parent;
         // cout << "grandparent" << grandparent->data << endl;
+        // cout << "parent" << parent->data << endl;
+        // cout << "grandparent->right" << grandparent->right->data << endl;
 
         if (parent == grandparent->right) {//parent is right child
 
             uncle = grandparent->left; //left uncle
 
-            if (uncle->color == COLOR_RED && uncle != nullptr) { //if uncle color is red, then just recolor
+            if (uncle != nullptr && uncle->color == COLOR_RED ) { //if uncle color is red, then just recolor
                 grandparent->color = COLOR_RED;
                 uncle->color = COLOR_BLACK;
                 parent->color = COLOR_BLACK;
@@ -31,11 +33,11 @@ void RedBlackTree::sortTree(Node* &node){
             else {//uncle is black, rotate and recolor
 
                 if (node == parent->left) {// RL case
+                    RightRotate(parent);
                     node = parent;
-                    RightRotate(node);
-                }
-                parent->color = COLOR_BLACK; //RR case
-                grandparent->color = COLOR_RED;
+                    parent = node->parent;
+                }                          
+                swap(parent->color, grandparent->color); //RR case
                 LeftRotate(grandparent);
             }
 
@@ -43,7 +45,7 @@ void RedBlackTree::sortTree(Node* &node){
 
             uncle = grandparent->right; //this causes seg fault
 
-            if (uncle->color == COLOR_RED) {//if uncle color is red, then just recolor
+            if (uncle != nullptr && uncle->color == COLOR_RED) {//if uncle color is red, then just recolor
 
                 uncle->color = COLOR_BLACK;
                 parent->color = COLOR_BLACK;
@@ -65,7 +67,7 @@ void RedBlackTree::sortTree(Node* &node){
   root->color = COLOR_BLACK;
 }
 
-void RedBlackTree::RightRotate(Node* &node) {
+void RedBlackTree::RightRotate(Node* node) {
 
     Node* temp = node->left;
     node->left = temp->right;
@@ -73,7 +75,6 @@ void RedBlackTree::RightRotate(Node* &node) {
     if(node->left != nullptr){
         node->left->parent = node;
     }
-
     temp->parent = node->parent;
     
     if (node->parent == nullptr){
@@ -93,7 +94,7 @@ void RedBlackTree::RightRotate(Node* &node) {
 }
 
 
- void RedBlackTree::LeftRotate(Node* &node) {
+ void RedBlackTree::LeftRotate(Node* node) {
     Node* temp = node->right;
     node->right = temp->left;
 
@@ -117,17 +118,39 @@ void RedBlackTree::RightRotate(Node* &node) {
     node->parent = temp;
 }
 
+void RedBlackTree::bstInsert(Node* insert){
+
+    // cout << "BST insert (" << insert->data << ")" << endl;
+    Node* cur = root;
+    while (cur != nullptr) {
+        if (insert->data < cur -> data) {
+            if (cur -> left != nullptr) {
+                cur = cur -> left;
+            } else {
+                // cout << "here" << insert-> data << endl;
+                cur -> left = insert;
+                insert->parent = cur;
+                // cout << "parent" << insert->parent->data << endl;
+
+                // cout << "grandparent" << insert->parent->parent->data << endl;
+                break;
+            }
+        } else {
+            if (cur -> right != nullptr) {
+                cur = cur -> right;
+            } else {
+                cur -> right = insert;
+                insert->parent = cur;
+                break;
+            }
+        }
+    }
+    cout << "BST insert (" << insert->data << ") done" << endl;
+
+    
+}
 
 
-/*
-
-Every node has a color either red or black.
-The root of the tree is always black.
-There are no two adjacent red nodes (A red node cannot have a red parent or red child).
-Every path from a node (including root) to any of its descendants NULL nodes has the same number of black nodes.
-All leaf nodes are black nodes.
-
-*/
 
 void RedBlackTree::Insert(int num){
 
@@ -136,7 +159,6 @@ void RedBlackTree::Insert(int num){
     }
 
     numItems++; //increase count
-    
     Node* temp = new Node(num);
 
     //root case
@@ -147,33 +169,11 @@ void RedBlackTree::Insert(int num){
     }
 
     //insert into BST tree
-    Node* cur = root;
+    bstInsert(temp);
 
-    while (cur != nullptr) {
-        if (num < cur -> data) {
-            if (cur -> left) {
-                cur = cur -> left;
-            } else {
-                cur -> left = temp;
-                temp->parent = cur;
-                break;
-            }
-        } else {
-            if (cur -> right) {
-                cur = cur -> right;
-            } else {
-                cur -> right = temp;
-                temp->parent = cur;
-                break;
-            }
-        }
-    }
-
-    cout << "here" << endl;
-    //If the parent of newNode is Black then exit from the operation.
-    if(temp->parent->color == COLOR_BLACK) return;
-    //if it is red, then fix the tree
-    sortTree(temp);
+    //If the parent of newNode is Black then exit from the operation
+    //if the parent is red, then fix the tree
+    fixTree(temp);
     //fix double red
 }
 

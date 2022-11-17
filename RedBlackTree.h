@@ -62,9 +62,10 @@ class RedBlackTree{
         void preorder(Node* root, string& s);
         void postorder(Node* root, string& s);
 
-        void sortTree(Node* &node);
-        void RightRotate(Node* &node);
-        void LeftRotate(Node* &node);
+        void fixTree(Node* node);
+        void RightRotate(Node* node);
+        void LeftRotate(Node* node);
+        void bstInsert(Node* node);
         
 };
 #endif
