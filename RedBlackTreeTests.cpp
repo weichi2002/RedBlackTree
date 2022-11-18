@@ -95,10 +95,29 @@ void TestInsertThirdNode(){
 
 void TestInsertFourthNode(){
 	cout << "Testing Insert Fourth Node..." << endl;
-	
 
-	cout << "TESTS MISSING" << endl << endl;
-	
+	RedBlackTree *rbt = new RedBlackTree();
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(10);
+	cout << "rbt inorder: " << rbt->ToInfixString() << endl;
+
+	rbt->Insert(20);
+	cout << "rbt inorder: " << rbt->ToInfixString() << endl;
+	assert(rbt->ToInfixString() == " B10  B15  R20  B30 ");
+
+	delete rbt;
+
+	cout << "Testing Insert Fourth Node..." << endl;
+	rbt = new RedBlackTree();
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(10);
+	rbt->Insert(11);
+	cout << "rbt inorder: " << rbt->ToInfixString() << endl;
+	assert(rbt->ToInfixString() == " B10  R11  B15  B30 ");
+
+	delete rbt;
 	cout << "PASSED!" << endl << endl;
 }
 
@@ -151,7 +170,6 @@ void TestInsertRandomTests(){
 	delete rbt;
 
 	
-	// probably should have a delete or something here
 	rbt = new RedBlackTree();
 	//cout << endl << "NEW TREE" << endl;
 	rbt->Insert(12);
@@ -204,7 +222,6 @@ void TestCopyConstructor(){
 
 	assert(rbt2.ToPrefixString() == " B11  B9  R4  B31  R23  R52 " );
 
-
 	cout << "PASSED!" << endl << endl;
 }
 
@@ -224,6 +241,8 @@ void TestContains(){
 	rbt->Insert(34);
 	
 	assert(rbt->Contains(34));
+	assert(rbt->Contains(22));
+	assert(rbt->Contains(5) == false);
 	delete rbt;
 
 	
@@ -235,7 +254,17 @@ void TestContains(){
 void TestGetMinimumMaximum(){
 	cout << "Testing Get Minimum and Get Maximum..." << endl;
 
-	cout << "TESTS MISSING" << endl << endl;
+	RedBlackTree *rbt = new RedBlackTree();
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(45);
+	rbt->Insert(10);
+	rbt->Insert(25);
+	//cout << "result: "  << rbt->ToPrefixString() << endl;
+	assert(rbt->GetMax() == 45);
+	assert(rbt->GetMin() == 10);
+
+	delete rbt;
 
 	cout << "PASSED!" << endl << endl;
 }
