@@ -247,16 +247,16 @@ int main(){
 	TestInsertFirstNode();
 	TestInsertSecondNode();
 	TestInsertThirdNode();
-	// TestInsertFourthNode();
-	// TestInsertFifthNode();
+	TestInsertFourthNode();
+	TestInsertFifthNode();
 
-	// TestToStrings();
-	// TestInsertRandomTests();
+	TestToStrings();
+	TestInsertRandomTests();
 
 	TestCopyConstructor();
 
-	// TestContains();
-	// TestGetMinimumMaximum();
+	TestContains();
+	TestGetMinimumMaximum();
 
 	
 	cout << "ALL TESTS PASSED!!" << endl;
