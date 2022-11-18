@@ -9,7 +9,6 @@ using namespace std;
 void TestSimpleConstructor(){
 	cout << "Testing Simple Constructor... " << endl;
 	RedBlackTree rbt = RedBlackTree();
-	// cout << "empty r-b-tree: (" << rbt.ToInfixString() << ")" << endl;
 	assert(rbt.ToInfixString() == "");
 	
 	cout << "PASSED!"<< endl << endl;
@@ -129,7 +128,6 @@ void TestInsertFifthNode(){
 	rbt->Insert(45);
 	rbt->Insert(10);
 	rbt->Insert(25);
-	//cout << "result: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B30  B15  R10  R25  B45 ");
 	delete rbt;
 	
@@ -166,35 +164,23 @@ void TestInsertRandomTests(){
 	rbt->Insert(20);
 	rbt->Insert(12);
 	cout << endl;
-	//cout << "tree: " << rbt->ToInfixString() << endl;
 	delete rbt;
 
 	
 	rbt = new RedBlackTree();
-	//cout << endl << "NEW TREE" << endl;
 	rbt->Insert(12);
-	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	rbt->Insert(11);
-	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	rbt->Insert(15);
-	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	rbt->Insert(5);
-	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	rbt->Insert(13);
-	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	rbt->Insert(7);
-	//cout << "tree: "  << rbt->ToInfixString() << endl;
 	delete rbt;
 	
 	
 	rbt = new RedBlackTree();
-	//cout << endl << "NEW TREE" << endl;
 	rbt->Insert(12);
-	//cout << "tree: "  << rbt->ToPrefixString() << endl;
 	rbt->Insert(10);
-	//cout << "tree: "  << rbt->ToPrefixString() << endl;
 	rbt->Insert(8);
-	//cout << "tree: "  << rbt->ToPrefixString() << endl;
 	delete rbt;
 	
 	cout << "PASSED!" << endl << endl;

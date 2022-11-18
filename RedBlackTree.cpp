@@ -33,7 +33,6 @@ Node* RedBlackTree::copyHelper(const Node* other){
 }
 
 RedBlackTree::RedBlackTree(const RedBlackTree &other){
-    
     root = copyHelper(other.root);
 }
 
@@ -49,25 +48,22 @@ void RedBlackTree::fixTree(Node* node){
         Node* uncle;
         Node* parent = node->parent;
         Node* grandparent = node->parent->parent;
-        // cout << "grandparent" << grandparent->data << endl;
-        // cout << "parent" << parent->data << endl;
-        // cout << "grandparent->right" << grandparent->right->data << endl;
-
+    
         if (parent == grandparent->right) {//parent is right child
 
             uncle = grandparent->left; //left uncle
 
             if (uncle != nullptr && uncle->color == COLOR_RED ) { //if uncle color is red, then just recolor
                 cout << "LEFT RED UNCLE" << endl;
-                cout << "grandparent color" << grandparent->color << endl;
+                cout << "grandparent data" << grandparent->data << endl;
                 grandparent->color = COLOR_RED;
                 cout << "uncle color " << uncle->color << endl;
 
                 uncle->color = COLOR_BLACK;
                 cout << "parent color " << parent->color << endl;
                 parent->color = COLOR_BLACK;
-                cout << "here" << endl;
                 node = grandparent;
+                cout << "Node data: " << node->data << endl;
             } 
             else {//uncle is black, rotate and recolor
 
@@ -97,13 +93,14 @@ void RedBlackTree::fixTree(Node* node){
             } else {//uncle is black, rotate and recolor
 
                 if (node == parent->right) {//left right case, rotate left first then right
-                cout << "LEFT RIGHT CASE" << endl;
+                    cout << "LEFT RIGHT CASE" << endl;
                     LeftRotate(parent);
                     node = parent;
                     parent = node->parent;
                 }else{
                     cout << "LEFT LEFT CASE" << endl;
                 }
+               
                 swap(parent->color, grandparent->color); //left left case, rotate right
                 RightRotate(grandparent);
             }
@@ -174,12 +171,8 @@ void RedBlackTree::bstInsert(Node* insert){
             if (cur -> left != nullptr) {
                 cur = cur -> left;
             } else {
-                // cout << "here" << insert-> data << endl;
                 cur -> left = insert;
                 insert->parent = cur;
-                // cout << "parent" << insert->parent->data << endl;
-
-                // cout << "grandparent" << insert->parent->parent->data << endl;
                 break;
             }
         } else {
@@ -196,9 +189,9 @@ void RedBlackTree::bstInsert(Node* insert){
 
 void RedBlackTree::Insert(int num){
 
-    // if(Contains(num)){
-    //     throw invalid_argument("Duplicate items are not allowed");
-    // }
+    if(Contains(num)){
+        throw invalid_argument("Duplicate items are not allowed");
+    }
     cout << endl << "Inserting " << num << endl;
     numItems++; //increase count
     Node* temp = new Node(num);
@@ -216,7 +209,6 @@ void RedBlackTree::Insert(int num){
     //If the parent of newNode is Black then exit from the operation
     //if the parent is red, then fix the tree
     fixTree(temp);
-    //fix double red
 }
 
 
@@ -225,7 +217,7 @@ void RedBlackTree::inorder(Node* root, string& s){
 
     inorder(root -> left, s);
     s += " ";
-    s += (root->color == COLOR_BLACK)? "B": "R"; //determine which color to add
+    s += (root->color == COLOR_BLACK)? "B": "R"; 
     s += to_string(root->data);
     s += " ";
     inorder(root -> right, s);
@@ -234,16 +226,15 @@ void RedBlackTree::inorder(Node* root, string& s){
 string RedBlackTree::ToInfixStringPrivate(Node* root){
     if(!root) return "";
     string s;
-    inorder(root, s); //calls helper function
+    inorder(root, s);
     return s;
 }
 
 void RedBlackTree::preorder(Node* root, string& s){
-    if (!root) return; //if root is null, return
+    if (!root) return;
 
-    // cout << "here" << endl;
     s += " ";
-    s += (root->color == COLOR_BLACK)? "B": "R"; //determine which color to add
+    s += (root->color == COLOR_BLACK)? "B": "R"; 
     s += to_string(root->data);
     s += " ";
     preorder(root -> left, s);
@@ -255,17 +246,17 @@ string RedBlackTree::ToPrefixStringPrivate(Node* root){
     if(!root) return "";
 
     string s;
-    preorder(root, s); //calls helper function
+    preorder(root, s);
     return s;
 }
 
 void RedBlackTree::postorder(Node* root, string& s){
-    if (!root) return; //if root is null, return
+    if (!root) return; 
 
     postorder(root -> left, s);
     postorder(root -> right, s);
     s += " ";
-    s += (root->color == COLOR_BLACK)? "B": "R"; //determine which color to add
+    s += (root->color == COLOR_BLACK)? "B": "R"; 
     s += to_string(root->data);
     s += " ";
 }
@@ -273,7 +264,7 @@ void RedBlackTree::postorder(Node* root, string& s){
 string RedBlackTree::ToPostfixStringPrivate(Node* root){
     if(!root) return "";
     string s;
-    postorder(root, s); //calls helper function
+    postorder(root, s); 
     return s;
 }
 
