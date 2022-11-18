@@ -94,31 +94,11 @@ void TestInsertThirdNode(){
 }
 
 void TestInsertFourthNode(){
-
 	cout << "Testing Insert Fourth Node..." << endl;
-	RedBlackTree *rbt = new RedBlackTree();
-	rbt->Insert(30);
-	rbt->Insert(15);
-	rbt->Insert(10);
-	cout << "rbt inorder: " << rbt->ToInfixString() << endl;
+	
 
-	rbt->Insert(20);
-	cout << "rbt inorder: " << rbt->ToInfixString() << endl;
-	assert(rbt->ToInfixString() == " B10  B15  R20  B30 ");
-
-	delete rbt;
-
-	cout << "Testing Insert Fourth Node..." << endl;
-	rbt = new RedBlackTree();
-	rbt->Insert(30);
-	rbt->Insert(15);
-	rbt->Insert(10);
-	rbt->Insert(11);
-	cout << "rbt inorder: " << rbt->ToInfixString() << endl;
-	assert(rbt->ToInfixString() == " B10  R11  B15  B30 ");
-
-	delete rbt;
-
+	cout << "TESTS MISSING" << endl << endl;
+	
 	cout << "PASSED!" << endl << endl;
 }
 
@@ -147,8 +127,6 @@ void TestToStrings(){
 	rbt->Insert(12);
 	rbt->Insert(11);
 	rbt->Insert(15);
-	cout << "Inorder" << rbt->ToInfixString() << endl;
-
 	rbt->Insert(5);
 	rbt->Insert(13);
 	rbt->Insert(7);
@@ -224,6 +202,9 @@ void TestCopyConstructor(){
 	rbt1.Insert(200);
 	assert(rbt2.ToPrefixString() != rbt1.ToPrefixString());
 
+	assert(rbt2.ToPrefixString() == " B11  B9  R4  B31  R23  R52 " );
+
+
 	cout << "PASSED!" << endl << endl;
 }
 
@@ -243,13 +224,9 @@ void TestContains(){
 	rbt->Insert(34);
 	
 	assert(rbt->Contains(34));
-	assert(rbt->Contains(22));
-
-	assert(rbt->Contains(5) == false);
-
-
 	delete rbt;
 
+	
 	cout << "TESTS MISSING" << endl << endl;
 	cout << "PASSED!" << endl << endl;
 }
@@ -258,17 +235,7 @@ void TestContains(){
 void TestGetMinimumMaximum(){
 	cout << "Testing Get Minimum and Get Maximum..." << endl;
 
-	RedBlackTree *rbt = new RedBlackTree();
-	rbt->Insert(30);
-	rbt->Insert(15);
-	rbt->Insert(45);
-	rbt->Insert(10);
-	rbt->Insert(25);
-	//cout << "result: "  << rbt->ToPrefixString() << endl;
-	assert(rbt->GetMax() == 45);
-	assert(rbt->GetMin() == 10);
-
-	delete rbt;
+	cout << "TESTS MISSING" << endl << endl;
 
 	cout << "PASSED!" << endl << endl;
 }
@@ -276,10 +243,10 @@ void TestGetMinimumMaximum(){
 
 int main(){
 
-	// TestSimpleConstructor();
-	// TestInsertFirstNode();
-	// TestInsertSecondNode();
-	// TestInsertThirdNode();
+	TestSimpleConstructor();
+	TestInsertFirstNode();
+	TestInsertSecondNode();
+	TestInsertThirdNode();
 	// TestInsertFourthNode();
 	// TestInsertFifthNode();
 

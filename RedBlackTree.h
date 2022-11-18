@@ -37,7 +37,7 @@ class RedBlackTree{
     public: 
         RedBlackTree();
         ~RedBlackTree();
-        RedBlackTree(const RedBlackTree& copy); //copy constructor
+        RedBlackTree(const RedBlackTree &copy); //copy constructor
 
         void Insert(int num);
         bool Contains(int num);
@@ -70,6 +70,7 @@ class RedBlackTree{
 
         //delete helper functions
         void destroyRecursive(Node* node);
+        Node* copyHelper(const Node* copy);
         
 };
 #endif

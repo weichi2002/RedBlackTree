@@ -18,6 +18,25 @@ void RedBlackTree::destroyRecursive(Node* node){
 
 }
 
+Node* RedBlackTree::copyHelper(const Node* other){
+
+    if (other == nullptr){
+        return nullptr;
+    }
+
+    Node* temp = new Node(other->data);
+    temp->color = other->color;
+    temp->left = copyHelper(other->left);
+    temp->right = copyHelper(other->right);
+    
+    return temp;
+}
+
+RedBlackTree::RedBlackTree(const RedBlackTree &other){
+    
+    root = copyHelper(other.root);
+}
+
 RedBlackTree::~RedBlackTree(){
     destroyRecursive(root);
 }
