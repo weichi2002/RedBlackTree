@@ -15,7 +15,6 @@ void RedBlackTree::destroyRecursive(Node* node){
         destroyRecursive(node->right);
         delete node;
     }
-
 }
 
 Node* RedBlackTree::copyHelper(const Node* other){
@@ -34,6 +33,7 @@ Node* RedBlackTree::copyHelper(const Node* other){
 
 RedBlackTree::RedBlackTree(const RedBlackTree &other){
     root = copyHelper(other.root);
+    numItems = other.numItems;
 }
 
 RedBlackTree::~RedBlackTree(){
@@ -317,5 +317,65 @@ bool RedBlackTree::Contains(int num){
     return false;
 
 }
+
+
+// //Part 2 Remove
+// void RedBlackTree::Remove(int num){
+
+//     //if node is not found 
+//     if(!Contains(num)){
+//         cout << "Node is not found" << endl;
+//         return;
+//     }
+
+//     //find the node to delete
+//     Node* cur = root;
+
+//     while(cur){
+//         if(cur->data == num){
+//             break;
+//         }
+//         if(cur->data > num){
+//             cur = cur->right;
+//         }else{
+//             cur = cur->left;
+//         }
+//     }
+
+//     y = z;
+//     int y_original_color = y->color;
+//     if (z->left == TNULL) {
+//       x = z->right;
+//       rbTransplant(z, z->right);
+//     } else if (z->right == TNULL) {
+//       x = z->left;
+//       rbTransplant(z, z->left);
+//     } else {
+//       y = minimum(z->right);
+//       y_original_color = y->color;
+//       x = y->right;
+//       if (y->parent == z) {
+//         x->parent = y;
+//       } else {
+//         rbTransplant(y, y->right);
+//         y->right = z->right;
+//         y->right->parent = y;
+//       }
+
+//       rbTransplant(z, y);
+//       y->left = z->left;
+//       y->left->parent = y;
+//       y->color = z->color;
+//     }
+//     delete z;
+//     if (y_original_color == 0) {
+//       deleteFix(x);
+//     }
+// }
+
+
+
+
+
 
 

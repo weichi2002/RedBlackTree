@@ -40,6 +40,7 @@ class RedBlackTree{
         RedBlackTree(const RedBlackTree &copy); //copy constructor
 
         void Insert(int num);
+        void Remove(int num);
         bool Contains(int num);
         int GetMin() const;
         int GetMax() const;
