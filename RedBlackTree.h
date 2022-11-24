@@ -64,7 +64,7 @@ class RedBlackTree{
         void postorder(Node* root, string& s);
 
         //insert helper functions
-        void fixTree(Node* node);
+        void InsertFix(Node* node);
         void RightRotate(Node* node);
         void LeftRotate(Node* node);
         void bstInsert(Node* node);
@@ -72,6 +72,14 @@ class RedBlackTree{
         //delete helper functions
         void destroyRecursive(Node* node);
         Node* copyHelper(const Node* copy);
+
+        //delete helper functions
+        void RemoveHelper(Node* node);
+        Node* BSTreplace(Node* node);
+        Node* Successor(Node* node);
+        Node* FindSibling(Node* node);
+        void FixDoubleBlack(Node* node);
+               
         
 };
 #endif

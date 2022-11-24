@@ -36,9 +36,12 @@ void TestInsertSecondNode(){
 	rbt->Insert(15);
 	cout << "rbt:" << rbt->ToPrefixString() << endl;
 
+
 	assert(rbt->ToPrefixString() == " B30  R15 ");
+	cout << "here" << endl;
 	delete rbt;
 	
+
 	rbt = new RedBlackTree();
 	rbt->Insert(30);
 	rbt->Insert(45);
@@ -255,25 +258,60 @@ void TestGetMinimumMaximum(){
 	cout << "PASSED!" << endl << endl;
 }
 
+void TestRemove(){
+	cout << "Testing Delete..." << endl;
+
+	RedBlackTree* rbt = new RedBlackTree();
+
+	//root case
+	rbt->Insert(30);
+	rbt->Remove(30);
+
+	assert(rbt->ToInfixString() == "");
+
+	//add more numbers to the tree
+	rbt->Insert(30);
+	rbt->Insert(15);
+	rbt->Insert(45);
+	rbt->Insert(10);
+	rbt->Insert(25);
+	rbt->Insert(11);
+	rbt->Insert(49);
+	rbt->Insert(58);
+
+	//try to remove something that does not exist
+	// rbt->Remove(0);
+
+	//remove red leaf
+	rbt->Remove(11);
+	assert(rbt->ToInfixString() == " B10  R15  B25  B30  R45  B49  R58 ");
+
+	//Sibling Red child and two black children
+	rbt->Remove(15);
+	cout << endl << "RBT inorder: " << rbt->ToInfixString() << endl;
+	assert(rbt->ToInfixString() == " B10  R25  B30  R45  B49  R58 ");
+
+	cout << "PASSED!" << endl << endl;
+}
 
 int main(){
 
-	TestSimpleConstructor();
-	TestInsertFirstNode();
-	TestInsertSecondNode();
-	TestInsertThirdNode();
-	TestInsertFourthNode();
-	TestInsertFifthNode();
+	// TestSimpleConstructor();
+	// TestInsertFirstNode();
+	// TestInsertSecondNode();
+	// TestInsertThirdNode();
+	// TestInsertFourthNode();
+	// TestInsertFifthNode();
 
-	TestToStrings();
-	TestInsertRandomTests();
+	// TestToStrings();
+	// TestInsertRandomTests();
 
-	TestCopyConstructor();
+	// TestCopyConstructor();
 
-	TestContains();
-	TestGetMinimumMaximum();
+	// TestContains();
+	// TestGetMinimumMaximum();
+	TestRemove();
 
-	
 	cout << "ALL TESTS PASSED!!" << endl;
 	return 0;
 }
