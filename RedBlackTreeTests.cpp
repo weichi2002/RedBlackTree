@@ -155,6 +155,8 @@ void TestToStrings(){
 	assert(rbt->ToInfixString() == " R5  B7  R11  B12  R13  B15 ");
 	assert(rbt->ToPostfixString() == " R5  R11  B7  R13  B15  B12 ");
 
+	delete rbt;
+
 	cout << "PASSED!" << endl << endl;
 }
 

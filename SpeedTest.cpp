@@ -13,7 +13,7 @@ int main(){
 
 	clock_t start = clock();
 	RedBlackTree rbt = RedBlackTree();
-	cout << "Loading..." << endl;
+	cout << endl << "Loading..." << endl;
 	for(int i = 0; i < N; i++){
 		rbt.Insert(i);
 	}
@@ -21,7 +21,7 @@ int main(){
 
 	double duration = (static_cast<double>(stop - start))/CLOCKS_PER_SEC;
 
-	cout << "Collected " << rbt.size() << " ID numbers in " << duration << " seconds." << endl;
+	cout << "Collected " << rbt.size() << " ID numbers in " << duration << " seconds." << endl << endl;
     //Collected 3700000 ID numbers in 1.63783 seconds.
     
     //Leaving
@@ -33,7 +33,7 @@ int main(){
             rbt.Remove(rand1);
             clock_t stop = clock();
             double duration = (static_cast<double>(stop - start))/CLOCKS_PER_SEC;
-            cout << "Remove #" << i << " took " << duration << " seconds." << endl << endl;
+            cout << "Remove #" << i << " took " << duration << " seconds." << endl;
             i++;
         }
     }
