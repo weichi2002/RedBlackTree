@@ -1,10 +1,10 @@
 all:
 	g++ -std=c++14 -Wall -g RedBlackTree.cpp RedBlackTreeTests.cpp -o rbt
-	# g++ -std=c++14 -Wall -g RedBlackTree.cpp SpeedTest.cpp -o spd
+	g++ -std=c++14 -Wall -g RedBlackTree.cpp SpeedTest.cpp -o spd
 
 
 run: 
 	./rbt
-	# ./spd
+	./spd
 
 try: all run
