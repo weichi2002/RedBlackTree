@@ -15,33 +15,33 @@ void RedBlackTree::destroyRecursive(Node* node){
     
     destroyRecursive(node->left);
     destroyRecursive(node->right);
-    Remove(node->data);
-    
+    delete node;
 }
 
 RedBlackTree::~RedBlackTree(){
-    cout << "===============DESTRUCTOR =======================" << endl;
+    // cout << "===============DESTRUCTOR =======================" << endl;
     destroyRecursive(this->root);
-    cout << "===============DESTRUCTOR =======================" << endl;
+    // cout << "===============DESTRUCTOR =======================" << endl;
 }
 
 
-Node* RedBlackTree::copyHelper(const Node* other){
+Node* RedBlackTree::copyHelper(const Node* other, Node* prev){
 
-    if (other == nullptr){
-        return nullptr;
-    }
+    if (other == nullptr) return nullptr;
 
     Node* temp = new Node(other->data);
     temp->color = other->color;
-    temp->left = copyHelper(other->left);
-    temp->right = copyHelper(other->right);
+    temp->parent = prev;
+    temp->left = copyHelper(other->left, temp);
+    temp->right = copyHelper(other->right, temp);
+    //forgot to write parent
+    
     
     return temp;
 }
 
 RedBlackTree::RedBlackTree(const RedBlackTree &other){
-    root = copyHelper(other.root); //I think the erorr is here for the copy constructor
+    root = copyHelper(other.root, nullptr); //I think the erorr is here for the copy constructor
     numItems = other.numItems;
 }
 
@@ -140,12 +140,9 @@ void RedBlackTree::RightRotate(Node* node) {
     temp->right = node;
     node->parent = temp;
  
-    
 }
 
-
  void RedBlackTree::LeftRotate(Node* node) {
-
 
     Node* temp = node->right;
     node->right = temp->left;
@@ -194,7 +191,7 @@ void RedBlackTree::bstInsert(Node* insert){
     }
 }
 
-void RedBlackTree::Insert(int num){
+void RedBlackTree::Insert(int num){//My insert runs at an average of 3e-05 second 
 
     if(Contains(num)){
        throw invalid_argument("Duplicae items are not allowed");
@@ -261,7 +258,7 @@ Node* RedBlackTree::FindSibling(Node* node){
 
 void RedBlackTree::FixDoubleBlack(Node* node){
 
-    cout << "DoubleBlack: " << endl;
+    // cout << "DoubleBlack: " << endl;
     if(node == root) return; //root case
    
     Node* sibling = FindSibling(node);
@@ -349,7 +346,7 @@ void RedBlackTree::RemoveHelper(Node* tbd){//tbd: to be deleted
     Node* parent = tbd->parent;
 
     if(replace == nullptr){//leaf case
-        cout << "Leaf case" << endl;
+        // cout << "Leaf case" << endl;
         if(tbd == root){
             // cout << "Delete root" << endl;
             root = nullptr;
@@ -405,9 +402,9 @@ void RedBlackTree::RemoveHelper(Node* tbd){//tbd: to be deleted
     RemoveHelper(replace);
 }
 
-void RedBlackTree::Remove(int num){
+void RedBlackTree::Remove(int num){//My remove runs at an average of 3e-06 second
 
-    cout << endl << "Removing " << num << endl;
+    // cout << endl << "Removing " << num << endl;
 
     //if node is not found 
     if(!Contains(num)){

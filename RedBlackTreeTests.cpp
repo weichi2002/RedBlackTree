@@ -205,6 +205,7 @@ void TestCopyConstructor(){
 	RedBlackTree rbt2 = RedBlackTree(rbt1);
 
 	assert(rbt2.ToPrefixString() == rbt1.ToPrefixString());
+	
 
 	cout << "PASSED!" << endl << endl;	
 	cout << "destructor is called here??? " << endl;
@@ -299,22 +300,22 @@ void TestRemove(){
 
 int main(){
 
-	// TestSimpleConstructor();
-	// TestInsertFirstNode();
-	// TestInsertSecondNode();
-	// TestInsertThirdNode();
-	// TestInsertFourthNode();
-	// TestInsertFifthNode();
+	TestSimpleConstructor();
+	TestInsertFirstNode();
+	TestInsertSecondNode();
+	TestInsertThirdNode();
+	TestInsertFourthNode();
+	TestInsertFifthNode();
 
-	// TestToStrings();
-	// TestInsertRandomTests();
+	TestToStrings();
+	TestInsertRandomTests();
 
 
 	TestCopyConstructor(); //no destructor availible
 
-	// TestContains();
-	// TestGetMinimumMaximum();
-	// TestRemove();
+	TestContains();
+	TestGetMinimumMaximum();
+	TestRemove();
 
 	cout << "ALL TESTS PASSED!!" << endl;
 	return 0;

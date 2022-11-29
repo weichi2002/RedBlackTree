@@ -71,7 +71,7 @@ class RedBlackTree{
 
         //delete helper functions
         void destroyRecursive(Node* node);
-        Node* copyHelper(const Node* copy);
+        Node* copyHelper(const Node* copy, Node* prev);
 
         //delete helper functions
         void RemoveHelper(Node* node);
