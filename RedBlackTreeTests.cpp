@@ -311,9 +311,7 @@ int main(){
 
 	TestToStrings();
 	TestInsertRandomTests();
-
-
-	TestCopyConstructor(); //no destructor availible
+	TestCopyConstructor();
 
 	TestContains();
 	TestGetMinimumMaximum();
