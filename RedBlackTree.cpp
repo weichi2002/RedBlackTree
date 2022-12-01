@@ -21,6 +21,7 @@ void RedBlackTree::destroyRecursive(Node* node){
 RedBlackTree::~RedBlackTree(){
     // cout << "===============DESTRUCTOR =======================" << endl;
     destroyRecursive(this->root);
+    numItems = 0;
     // cout << "===============DESTRUCTOR =======================" << endl;
 }
 
