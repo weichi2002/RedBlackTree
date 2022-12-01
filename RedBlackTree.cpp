@@ -21,6 +21,7 @@ void RedBlackTree::destroyRecursive(Node* node){
 RedBlackTree::~RedBlackTree(){
     // cout << "===============DESTRUCTOR =======================" << endl;
     destroyRecursive(this->root);
+    numItems = 0;
     // cout << "===============DESTRUCTOR =======================" << endl;
 }
 
@@ -194,7 +195,7 @@ void RedBlackTree::bstInsert(Node* insert){
 void RedBlackTree::Insert(int num){//My insert runs at an average of 3e-05 second 
 
     if(Contains(num)){
-       throw invalid_argument("Duplicae items are not allowed");
+       throw invalid_argument("Duplicate items are not allowed");
     }
     // cout << endl << "Inserting " << num << endl;
     numItems++; //increase count

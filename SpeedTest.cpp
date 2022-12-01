@@ -42,7 +42,7 @@ int main(){
     //Joining
     i = 1;
     while(i < 6){
-        int rand1 = rand() % 3700000 + rand() % 1000;    
+        int rand1 = rand();    
         if(!rbt.Contains(rand1)){
             clock_t start = clock();
             rbt.Insert(rand1);
