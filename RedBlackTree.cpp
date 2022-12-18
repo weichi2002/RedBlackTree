@@ -381,7 +381,8 @@ void RedBlackTree::Remove(int num){//My remove runs at an average of 3e-06 secon
     if(!Contains(num)){
         throw invalid_argument("Node is not found");
     }
-
+    
+    numItems--; 
     Node* cur = root;
     while(cur!= nullptr){
         if(cur->data == num){

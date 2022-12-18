@@ -168,6 +168,7 @@ void TestInsertRandomTests(){
 	rbt->Insert(13);
 	rbt->Insert(20);
 	rbt->Insert(12);
+
 	cout << endl;
 	delete rbt;
 
@@ -179,6 +180,7 @@ void TestInsertRandomTests(){
 	rbt->Insert(5);
 	rbt->Insert(13);
 	rbt->Insert(7);
+
 	delete rbt;
 	
 	
@@ -316,6 +318,7 @@ int main(){
 	TestContains();
 	TestGetMinimumMaximum();
 	TestRemove();
+
 
 	cout << "ALL TESTS PASSED!!" << endl;
 	return 0;
