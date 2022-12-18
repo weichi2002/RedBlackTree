@@ -42,7 +42,11 @@ int main(){
     //Joining
     i = 1;
     while(i < 6){
+<<<<<<< HEAD
         int rand1 = rand();    
+=======
+        int rand1 = rand();  
+>>>>>>> 5ac79d9cca13ed38b766e2043b8405813f0000da
         if(!rbt.Contains(rand1)){
             clock_t start = clock();
             rbt.Insert(rand1);

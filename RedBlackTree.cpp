@@ -10,34 +10,30 @@ RedBlackTree::RedBlackTree(){
 }
 
 void RedBlackTree::destroyRecursive(Node* node){
-    
+
     if(node == nullptr) return;
-    
     destroyRecursive(node->left);
     destroyRecursive(node->right);
     delete node;
 }
 
 RedBlackTree::~RedBlackTree(){
-    // cout << "===============DESTRUCTOR =======================" << endl;
     destroyRecursive(this->root);
     numItems = 0;
+<<<<<<< HEAD
+=======
     // cout << "===============DESTRUCTOR =======================" << endl;
+>>>>>>> 0efcc1ee163b727c7e58267bda10f81302aabd15
 }
-
 
 Node* RedBlackTree::copyHelper(const Node* other, Node* prev){
 
     if (other == nullptr) return nullptr;
-
     Node* temp = new Node(other->data);
     temp->color = other->color;
     temp->parent = prev;
     temp->left = copyHelper(other->left, temp);
     temp->right = copyHelper(other->right, temp);
-    //forgot to write parent
-    
-    
     return temp;
 }
 
@@ -47,29 +43,21 @@ RedBlackTree::RedBlackTree(const RedBlackTree &other){
 }
 
 void RedBlackTree::InsertFix(Node* node){
-   
-    while (node->parent->color == COLOR_RED){
 
+    while (node->parent->color == COLOR_RED){
         // cout << "Fixing Node :" << node->data << endl;
         Node* uncle;
         Node* parent = node->parent;
         Node* grandparent = node->parent->parent;
-    
+
         if (parent == grandparent->right) {//parent is right child
-
             uncle = grandparent->left; //left uncle
-
             if (uncle != nullptr && uncle->color == COLOR_RED ) { //if uncle color is red, then just recolor
                 // cout << "LEFT RED UNCLE" << endl;
-                // cout << "grandparent data" << grandparent->data << endl;
                 grandparent->color = COLOR_RED;
-                // cout << "uncle color " << uncle->color << endl;
-
                 uncle->color = COLOR_BLACK;
-                // cout << "parent color " << parent->color << endl;
                 parent->color = COLOR_BLACK;
                 node = grandparent;
-                // cout << "Node data: " << node->data << endl;
             } 
             else {//uncle is black, rotate and recolor
 
@@ -84,11 +72,8 @@ void RedBlackTree::InsertFix(Node* node){
                 swap(parent->color, grandparent->color); //RR case
                 LeftRotate(grandparent);
             }
-
         } else { //right uncle
-
             uncle = grandparent->right; 
-
             if (uncle != nullptr && uncle->color == COLOR_RED) {//if uncle color is red, then just recolor
                 // cout << "RIGHT RED UNCLE" << endl;
                 uncle->color = COLOR_BLACK;
@@ -97,7 +82,6 @@ void RedBlackTree::InsertFix(Node* node){
                 node = grandparent;
 
             } else {//uncle is black, rotate and recolor
-
                 if (node == parent->right) {//left right case, rotate left first then right
                     // cout << "LEFT RIGHT CASE" << endl;
                     LeftRotate(parent);
@@ -106,7 +90,6 @@ void RedBlackTree::InsertFix(Node* node){
                 }else{
                     // cout << "LEFT LEFT CASE" << endl;
                 }
-               
                 swap(parent->color, grandparent->color); //left left case, rotate right
                 RightRotate(grandparent);
             }
@@ -137,7 +120,6 @@ void RedBlackTree::RightRotate(Node* node) {
     else{
         node->parent->right = temp;
     }
-
     temp->right = node;
     node->parent = temp;
  
@@ -209,7 +191,6 @@ void RedBlackTree::Insert(int num){//My insert runs at an average of 3e-05 secon
     }
 
     bstInsert(temp);
-
     //If the parent of newNode is Black then exit from the operation
     //if the parent is red, then fix the tree
     InsertFix(temp);
@@ -284,20 +265,19 @@ void RedBlackTree::FixDoubleBlack(Node* node){
             FixDoubleBlack(node);
 
         }else{
-            //if sibling has a red child
             if((sibling->right != nullptr && sibling->right->color == COLOR_RED)
             || (sibling->left != nullptr && sibling->left->color == COLOR_RED)){
                 // cout << "Sibling has a red child" << endl;
 
                 if(sibling->left != nullptr && sibling->left->color == COLOR_RED){
 
-                    if(sibling == parent->left){//left left
+                    if(sibling == parent->left){
                         // cout << "Left left" << endl;
                         sibling->left->color = parent->color;
                         sibling->color = parent->color;
                         RightRotate(parent);
 
-                    }else{//right left
+                    }else{
                         // cout << "Right left" << endl;
                         sibling->left->color = parent->color;
                         RightRotate(sibling);
@@ -307,14 +287,11 @@ void RedBlackTree::FixDoubleBlack(Node* node){
 
                     if (sibling== parent->left) {
                         // cout << " Left Right" << endl;
-
-                        // left right
                         sibling->right->color = parent->color;
                         LeftRotate(sibling);
                         RightRotate(parent);
                     } else {
                         // cout << " Right Right" << endl;
-                        // right right
                         sibling->right->color = sibling->color;
                         sibling->color = parent->color;
                         LeftRotate(parent);
@@ -325,7 +302,6 @@ void RedBlackTree::FixDoubleBlack(Node* node){
 
             } else {
                 // cout << "Two Black children" << endl;
-                //2 black children
                 sibling->color = COLOR_RED;
                 if (parent->color == COLOR_BLACK){
                     FixDoubleBlack(parent);
@@ -346,7 +322,7 @@ void RedBlackTree::RemoveHelper(Node* tbd){//tbd: to be deleted
     bool doubleBlack = ((replace == nullptr or replace->color == COLOR_BLACK) and (tbd->color == COLOR_BLACK));
     Node* parent = tbd->parent;
 
-    if(replace == nullptr){//leaf case
+    if(replace == nullptr){
         // cout << "Leaf case" << endl;
         if(tbd == root){
             // cout << "Delete root" << endl;
@@ -373,10 +349,10 @@ void RedBlackTree::RemoveHelper(Node* tbd){//tbd: to be deleted
 
     // cout << "Replace is: " << replace->data << endl;
 
-    if(!tbd->left || !tbd->right){//one child
+    if(!tbd->left || !tbd->right){
         // cout << "One child" << endl;
         if(tbd == root){
-            root = replace; //come back to this
+            root = replace; 
             delete tbd;
         }else{
             if(tbd == parent->left){
@@ -406,13 +382,11 @@ void RedBlackTree::RemoveHelper(Node* tbd){//tbd: to be deleted
 void RedBlackTree::Remove(int num){//My remove runs at an average of 3e-06 second
 
     // cout << endl << "Removing " << num << endl;
-
-    //if node is not found 
     if(!Contains(num)){
         throw invalid_argument("Node is not found");
     }
-
-    //find the node to delete
+    
+    numItems--; 
     Node* cur = root;
     while(cur!= nullptr){
         if(cur->data == num){
@@ -424,7 +398,6 @@ void RedBlackTree::Remove(int num){//My remove runs at an average of 3e-06 secon
             cur = cur->right;
         }
     }
-
     RemoveHelper(cur);
 }
 
