@@ -30,7 +30,6 @@ LinkedList<T>::~LinkedList(){
 		delete current;
 		current = next;
 	}
-	delete head;
 	numItems = 0;
 }
 

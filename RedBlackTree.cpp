@@ -20,6 +20,10 @@ void RedBlackTree::destroyRecursive(Node* node){
 RedBlackTree::~RedBlackTree(){
     destroyRecursive(this->root);
     numItems = 0;
+<<<<<<< HEAD
+=======
+    // cout << "===============DESTRUCTOR =======================" << endl;
+>>>>>>> 0efcc1ee163b727c7e58267bda10f81302aabd15
 }
 
 Node* RedBlackTree::copyHelper(const Node* other, Node* prev){
